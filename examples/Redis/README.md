@@ -1,4 +1,4 @@
-## Slowbook データを Redis に保存
+## Slowbook データを Redis に保存する例
 
 ### 内容
 - **01-numeric.cpp**: 時系列データを Redis TimeSeries に保存
@@ -8,8 +8,14 @@
 
 ### 動作要件
 - C++ 17
-- Redis がすでに動いていること
+- Redis Stack サーバーがすでに動いていること
 - hiredis ライブラリがインストールされていること
+
+Redis がインストールされていない場合，Docker を使って簡単に一時的な Redis Stack サーバーを走らせることができます：
+```bash
+docker run -p 6379:6379 redis/redis-stack-server:latest
+```
+すでに Redis が走っていても，別のポート番号を使って上記のように別の Redis を走らせてそれを使うようにすると，既存の Redis に影響を与えないようにして以下のテストを行えます．その場合は，テスト用 Redis を使うようにソースコードのポート番号も変更してください．
 
 ### セットアップ
 ```bash
@@ -64,7 +70,7 @@ LIBS+=$(shell pkg-config --libs hiredis)
 以下に `01-numeric.cxx` の全体を示します．
 Redis を使用するのに必要なのは，以下の２点だけです：
 - Slowbook の Redis コードをインクルード: `#include <slowbook/datastore_Redis.hpp>`
-- データストアに Redis を指定：`sb::DataStore_Redis ds("redis://localhost:6379/1");`
+- データストアに Redis を指定：`slowbook::DataStore_Redis ds("redis://localhost:6379/1");`
 
 ```c++
 
@@ -99,8 +105,7 @@ int main(void)
 }
 ```
 
-Slowbook-Redis では，時系列でないデータ (`append()` ではなく `update()` による記録) は，
-Redis の普通の Key-Value に保存します．そのため，最新値だけが保持され，また，時刻情報は失われます．
+- `DataStore::append()` を使って記録すると，Redis Time-Series に時系列データとして記録されます．
+- `DataStore::update()` を使って記録すると，Redis の Key-Value ストアに最新値だけが記録されます．この場合，時刻情報は記録されません．
 
-- TODO: ヒストグラムなどの Attributes 部分に手動で時刻情報を記録することはできます．
-- TOOD: ヒストグラムなどを時系列データとして，各時刻点ごとに保存することもできます．
+[TODO]: 現時点では，ヒストグラムなどの数値でないデータに対して `append()` をすることはできません．難しくはないので，近々実装します．
