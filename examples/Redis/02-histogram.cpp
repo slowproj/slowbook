@@ -12,7 +12,7 @@ int main(void)
     
     sb::Histogram charge_hist(/*nbins*/ 100, /*min*/ 0, /*max*/ 100);
     
-    sb::DataStore_Redis ds("redis://localhost/1");
+    sb::DataStore_Redis ds("redis://localhost:6379/1");
     sb::SimpleObjectSchema object_schema("Objects");
         
     long t0 = time(NULL);

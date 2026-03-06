@@ -13,7 +13,7 @@ int main(void)
     sb::RateTrend rate_trend(/*tick_s*/ 1);
     sb::Histogram charge_hist(/*nbins*/ 100, /*min*/ 0, /*max*/ 100);
     
-    sb::DataStore_Redis ds("redis://localhost/1");
+    sb::DataStore_Redis ds("redis://localhost:6379/1");
     sb::SimpleNumericSchema numeric_schema("Numeric");
     sb::SimpleObjectSchema object_schema("Objects");
         

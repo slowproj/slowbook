@@ -10,7 +10,7 @@ int main(void)
 {
     sb::RandomWalk ch0, ch1;
     
-    sb::DataStore_Redis ds("redis://localhost/1");
+    sb::DataStore_Redis ds("redis://localhost:6379/1");
     sb::SimpleNumericSchema schema("NumericData");
     
     while (true) {
