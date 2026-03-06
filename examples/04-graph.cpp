@@ -9,8 +9,8 @@ int main(void)
 {
     sb::Graph<sb::PointXYEy> graph;
 
-    sb::DataStore_JsonDump ds;
-    //sb::DataStore_CsvFile ds("SlowStore_");
+    sb::DataStore_CsvFile ds("SlowStore_");
+    //sb::DataStore_JsonDump ds;
     
     sb::SimpleObjectSchema schema("Objects");
     

@@ -11,8 +11,8 @@ int main(void)
 {
     sb::RandomWalk ch0, ch1;
     
-    sb::DataStore_JsonDump ds;
-    //sb::DataStore_CsvFile ds("SlowStore_");
+    sb::DataStore_CsvFile ds("SlowStore_");
+    //sb::DataStore_JsonDump ds;
     
     sb::SimpleNumericSchema schema("NumericData");
     

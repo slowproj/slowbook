@@ -11,8 +11,8 @@ int main(void)
     
     sb::Histogram hist(/*nbins*/ 100, /*min*/ 0, /*max*/ 100);
     
-    sb::DataStore_JsonDump ds;
-    //sb::DataStore_CsvFile ds("SlowStore_");
+    sb::DataStore_CsvFile ds("SlowStore_");
+    //sb::DataStore_JsonDump ds;
     
     sb::SimpleObjectSchema schema("Objects");
 

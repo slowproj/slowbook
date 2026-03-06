@@ -11,8 +11,8 @@ int main(void)
     
     sb::RateTrend rate_trend(/*tick_s*/ 1);
     
-    sb::DataStore_JsonDump ds;
-    //sb::DataStore_CsvFile ds("SlowStore_");
+    sb::DataStore_CsvFile ds("SlowStore_");
+    //sb::DataStore_JsonDump ds;
     
     sb::SimpleNumericSchema schema("NumericData");
 
