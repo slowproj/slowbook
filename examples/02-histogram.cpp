@@ -9,7 +9,7 @@ int main(void)
 {
     sb::RandomPulse random_pulse(/*rate_cps*/ 10);
     
-    sb::Histogram hist(/*nbins*/ 100, /*min*/ 0, /*max*/ 100);
+    sb::Histogram hist(/*nbins*/ 10, /*min*/ 0, /*max*/ 100);
     
     sb::DataStore_CsvFile ds("SlowStore_");
     //sb::DataStore_JsonDump ds;
