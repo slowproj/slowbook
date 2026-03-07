@@ -233,12 +233,12 @@ class DataStore {
 - `DataSource_Redis`: update() で Redis Key-Value に，append() で Redis Time-Series に記録．hiredis ライブラリを使用
 
 使っていないデータベースライブラリへの不要な依存を避けるために，これらの実装クラスは `#include <slowbook.hpp>` には含まれません．
-使うものだけを追加でインクルード (Redis なら `#include <slowbook/datastore_Redis.hpp>`)し，Makefile / CMakeLists.txt 内で必要ライブラリをリンクしてください．
+使うものだけを追加でインクルード (Redis なら `#include <slowbook/datastore_Redis.hpp>`)し，Makefile / CMakeLists.txt 内で必要なライブラリをリンクしてください．
 
 
 ### 書き込み用データ構造
-DataStore の `append()`/`update()` に渡すのは，単一データ行を表す Record またはその集合の RecordSet です．
-（仮引数は `RecordSet` ですが，`RecordSet` のコンストラクタに `RecordSet(const& Record)` があるので，`Record`を渡してもコンパイラが自動で変換してくれます．）
+DataStore の `append()`/`update()` に渡すのは，単一データ行（時系列点）を表す Record またはその集合（複数時系列点）の RecordSet です．
+（仮引数の型は `RecordSet` ですが，`RecordSet` のコンストラクタに `RecordSet(const& Record)` があるので，`Record`を渡してもコンパイラが自動で変換してくれます．）
 
 Record は，SlowDash のデータモデルに対応して，以下のようなカラムから構成されます：
 - 時刻
@@ -255,7 +255,7 @@ record.time(t).tag("ch01").value(x);
 時系列データに典型的な `(time:UNIX, channel:string, field:double)` の構成は定義済みの `SimpleNumericSchema` です．
 `SimpleNumericSchema` を使用する代わりに，以下のようにして同じものを自分で作成することもできます：
 ```c++
-    slowbook::Schema schema(TABLE_NAME);
+    Schema schema(TABLE_NAME);
     schema.add_time<long>("time");
     schema.add_tag<std::string>("channel");
     schema.add_field<double>("value");
@@ -263,7 +263,7 @@ record.time(t).tag("ch01").value(x);
 
 他に，JSON シリアライズしたヒストグラムやグラフを保存するための `SimpleObjectSchema` もあり，以下と同等です：
 ```c++
-    sb::Schema schema(TABE_NAME);
+    Schema schema(TABE_NAME);
     schema.add_time<long>("time");
     schema.add_tag<std::string>("channel");
     schema.add_field<std::string>("value");
@@ -291,7 +291,7 @@ data_store.append(SlowDashDataFrame(object_schema).time(time).tag(channel) << hi
 ここでは，`SlowDashDataFrame` を左辺値にとる`<<` 演算子を多重定義して，その中で `enslow(rhs)` を呼び出しています．
 この時点ではフォーマット独立な Record に対して `enslow()` を自分で呼ぶのと大差がありませんが，後でトレンドを記録するときに，こちらの方式の方が統一的な記法になります．
 
-RecordSet は，基本的には `vector<Record>` です．DataStore が複数 Record を同時に書き込むことにより，性能の改善をはかることができますが，第一の目的は，トレンドを扱えるようにすることです．
+RecordSet は，基本的には `vector<Record>` です．DataStore が複数 Record を同時に書き込むことにより，性能の改善をはかることができます．（ただし，DataSet の第一の目的は，以下のようにトレンドを扱えるようにすることです．）
 
 トレンドは，複数の時系列点を保持するため，シリアライズした場合は複数の Record，すなわち RecordSet となります．
 このため，トレンドオブジェクトに対して直接 `enslow()` をすることはできません．
