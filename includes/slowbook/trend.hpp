@@ -98,17 +98,20 @@ struct TrendPointLastErrMinMax: public std::array<double,6> {
 template<class XTrendPoint>
 struct BareTrend: protected std::vector<XTrendPoint> {
     double start;
-    using std::vector<XTrendPoint>::operator[];
-    using std::vector<XTrendPoint>::clear;
-    using std::vector<XTrendPoint>::size;
-    using std::vector<XTrendPoint>::empty;
-    using std::vector<XTrendPoint>::begin;
-    using std::vector<XTrendPoint>::end;
     using point_type = XTrendPoint;
+    using Base = std::vector<XTrendPoint>;
+    using Base::operator[];
+    using Base::clear;
+    using Base::size;
+    using Base::empty;
+    using Base::begin;
+    using Base::end;
+    using Base::cbegin;
+    using Base::cend;
   public:
     BareTrend(double a_start=0): start(a_start) {}
   public:
-    struct Mark { typename std::vector<XTrendPoint>::size_type position; };
+    struct Mark { typename Base::size_type position; };
     Mark mark() const {
         return Mark{size()};
     }

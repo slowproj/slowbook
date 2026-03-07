@@ -8,7 +8,7 @@
 
 ### 動作要件
 - C++ 17
-- Redis Stack サーバーがすでに動いていること
+- Redis Stack サーバーがすでに動いていること (Redis TimeSereis が必要)
 - hiredis ライブラリがインストールされていること
 
 Redis がインストールされていない場合，Docker を使って簡単に一時的な Redis Stack サーバーを走らせることができます：
@@ -67,7 +67,7 @@ LIBS+=$(shell pkg-config --libs hiredis)
 ```
 
 ### C++ コード
-以下に `01-numeric.cxx` の全体を示します．
+以下に `01-numeric.cpp` の全体を示します．
 Redis を使用するのに必要なのは，以下の２点だけです：
 - Slowbook の Redis コードをインクルード: `#include <slowbook/datastore_Redis.hpp>`
 - データストアに Redis を指定：`slowbook::DataStore_Redis ds("redis://localhost:6379/1");`
@@ -75,6 +75,7 @@ Redis を使用するのに必要なのは，以下の２点だけです：
 ```c++
 
 #include <iostream>
+#include <unistd.h>
 #include <slowbook.hpp>
 #include <slowbook/datastore_Redis.hpp>
 
@@ -93,7 +94,6 @@ int main(void)
         double x0 = ch0.get();
         double x1 = ch1.get();
 
-        sb::SlowDashDataFrame df(schema);
         ds.append(sb::SlowDashDataFrame(schema).tag("ch0").time(t) << x0);
         ds.append(sb::SlowDashDataFrame(schema).tag("ch1").time(t) << x1);
 

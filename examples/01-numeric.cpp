@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <time.h>
+#include <unistd.h>
 
 #include <slowbook.hpp>
 

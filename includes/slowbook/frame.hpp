@@ -70,7 +70,7 @@ struct DataFrame: public RecordSet {
         return *static_cast<XDataFrame*>(this);
     }
 
-    // for each XDataFrame, for each value type X, implement the overloaded operator<<() below
+    // for each XDataFrame, for each value type X, implement the overloaded operator<<()
     // to fill a value of type X into a data store for XDataFrame:
     //    template<typename X> XDataFrame& operator<<(XDataFrame& frame, const X& value)
 };

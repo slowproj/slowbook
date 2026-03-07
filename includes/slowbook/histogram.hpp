@@ -15,11 +15,14 @@ namespace slowbook {
 struct Histogram: protected std::vector<double> {
     double min, max;
     double overflow, underflow;
-    using std::vector<double>::operator[];
-    using std::vector<double>::size;
-    using std::vector<double>::empty;
-    using std::vector<double>::begin;
-    using std::vector<double>::end;
+    using Base = std::vector<double>;
+    using Base::operator[];
+    using Base::size;
+    using Base::empty;
+    using Base::begin;
+    using Base::end;
+    using Base::cbegin;
+    using Base::cend;
   public:
     Histogram(unsigned nbins_, double min_, double max_): std::vector<double>(nbins_, 0), min(min_), max(max_) {
         overflow = 0;
@@ -59,11 +62,14 @@ struct Histogram: protected std::vector<double> {
 
 struct Histogram2d: protected std::vector<std::vector<double>> {
     double xmin, xmax, ymin, ymax;
-    using std::vector<std::vector<double>>::operator[];
-    using std::vector<std::vector<double>>::size;
-    using std::vector<std::vector<double>>::empty;
-    using std::vector<std::vector<double>>::begin;
-    using std::vector<std::vector<double>>::end;
+    using Base = std::vector<std::vector<double>>;
+    using Base::operator[];
+    using Base::size;
+    using Base::empty;
+    using Base::begin;
+    using Base::end;
+    using Base::cbegin;
+    using Base::cend;
   public:
     Histogram2d(unsigned xnbins_, double xmin_, double xmax_, unsigned ynbins_, double ymin_, double ymax_): std::vector<std::vector<double>>(ynbins_), xmin(xmin_), xmax(xmax_), ymin(ymin_), ymax(ymax_) {
         for (auto& ystrip: *this) {

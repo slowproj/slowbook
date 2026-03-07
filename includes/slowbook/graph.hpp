@@ -41,17 +41,20 @@ struct PointXYZEz: public std::array<double,4> {
     
 template<class XPoint>
 struct Graph: protected std::vector<XPoint> {
-    using std::vector<XPoint>::operator[];
+    using Base = std::vector<XPoint>;
+    using Base::operator[];
+    using Base::clear;
+    using Base::size;
+    using Base::empty;
+    using Base::begin;
+    using Base::end;
+    using Base::cbegin;
+    using Base::cend;
     template<typename... Args> void add_point(Args&&... args) {
-        std::vector<XPoint>::emplace_back(std::forward<Args>(args)...);
+        Base::emplace_back(std::forward<Args>(args)...);
     }
-    using std::vector<XPoint>::clear;
-    using std::vector<XPoint>::size;
-    using std::vector<XPoint>::empty;
-    using std::vector<XPoint>::begin;
-    using std::vector<XPoint>::end;
   public:
-    struct Mark { typename std::vector<XPoint>::size_type position; };
+    struct Mark { typename Base::size_type position; };
     Mark mark() const {
         return Mark{size()};
     }

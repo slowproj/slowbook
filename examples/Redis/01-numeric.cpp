@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <unistd.h>
 #include <slowbook.hpp>
 #include <slowbook/datastore_Redis.hpp>
 
@@ -18,7 +19,6 @@ int main(void)
         double x0 = ch0.get();
         double x1 = ch1.get();
 
-        sb::SlowDashDataFrame df(schema);
         ds.append(sb::SlowDashDataFrame(schema).tag("ch0").time(t) << x0);
         ds.append(sb::SlowDashDataFrame(schema).tag("ch1").time(t) << x1);
 
