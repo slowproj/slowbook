@@ -104,7 +104,7 @@ struct URI {
                 if (ch == '/') {
                     state = PATH;
                 }
-                if (ch == '?') {
+                else if (ch == '?') {
                     state = QUERY;
                 }
                 else {

@@ -41,6 +41,8 @@ struct Histogram: protected std::vector<double> {
     }
     void clear(void) {
         assign(size(), 0);
+        overflow = 0;
+        underflow = 0;
     }
   public:
     struct Mark { std::shared_ptr<Histogram> hist; };

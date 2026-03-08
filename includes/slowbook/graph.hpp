@@ -60,10 +60,7 @@ struct Graph: protected std::vector<XPoint> {
     }
     Graph since(const Mark& mark) const {
         Graph graph;
-        auto length = size() - mark.position;
-        if (length > 0) {
-            graph.assign(begin()+length, end());
-        }
+        graph.assign(begin()+mark.position, end());
         return graph;
     }
 };

@@ -97,7 +97,7 @@ struct Variant {
           case TYPE_INTEGER:
             return value.as_integer;
           case TYPE_REAL:
-            return long(value.as_real);
+            return value.as_real;
           case TYPE_TEXT:
             try {
                 return stod(value.as_text);

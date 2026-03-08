@@ -18,7 +18,7 @@ struct TrendBucket {
     double mean() const { return n>0 ? sum/n : NAN; }
     double var() const { auto m = mean(); return n>0 ? sum2/n-m*m : NAN; }
     double std() const { auto v = var(); return v>=0 ? std::sqrt(v) : NAN; }
-    double sem() const { auto v = var(); return ((v>=0) && (n > 0)) ? std::sqrt(v)/n : NAN; }
+    double sem() const { auto v = var(); return ((v>=0) && (n > 0)) ? std::sqrt(v/n) : NAN; }
     void fill(double x) {
         n += 1;
         sum += x;
@@ -117,10 +117,7 @@ struct BareTrend: protected std::vector<XTrendPoint> {
     }
     BareTrend since(const Mark& mark) const {
         BareTrend trend(start);
-        auto length = size() - mark.position;
-        if (length > 0) {
-            trend.assign(begin()+length, end());
-        }
+        trend.assign(begin()+mark.position, end());
         return trend;
     }
 };

@@ -132,10 +132,12 @@ class DataStore_Redis: public DataStore {
             throw std::runtime_error("slowbook::DataStore_Redis: bad time/tag/field length (must be all one)");
         }
         bool is_numeric = record.field_values[0].is_numeric();
+        std::string table = record.schema.table_name;
         std::string time = std::to_string(long(record.time_values[0].as_real() * 1000));  // ms
-        std::string key = record.tag_values[0].as_text();
+        std::string tag = record.tag_values[0].as_text();
         std::string value = record.field_values[0].as_text(/*precision*/10);
-
+        std::string key = (table.empty() ? tag : table + ":" + tag);
+        
         if (is_to_update) {
             auto reply = redis_.command({"SET", key, value});
         }

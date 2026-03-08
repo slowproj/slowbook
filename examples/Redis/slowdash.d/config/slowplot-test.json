@@ -12,9 +12,9 @@
             "plots": [
                 {
                     "type": "timeseries",
-                    "channel": "ch0",
+                    "channel": "Numeric:ch0",
                     "color": "#009090",
-                    "label": "",
+                    "label": "ch0",
                     "format": "%.5g",
                     "opacity": 1,
                     "marker_type": "circle",
@@ -36,9 +36,9 @@
             "plots": [
                 {
                     "type": "timeseries",
-                    "channel": "ch1",
+                    "channel": "Numeric:ch1",
                     "color": "#009090",
-                    "label": "",
+                    "label": "ch1",
                     "format": "%.5g",
                     "opacity": 1,
                     "marker_type": "circle",
@@ -58,9 +58,9 @@
         {
             "type": "plot",
             "plots": [
-                { "type": "histogram", "channel": "charge", "color": "#009090", "opacity": 0.2, "label": "", "format": "%.5g" }
+                { "type": "histogram", "channel": "", "color": "#009090", "opacity": 0.2, "label": "", "format": "%.5g" }
             ],
-            "axes": { "xfixed": false, "yfixed": false, "xlog": false, "ylog": false, "zlog": false },
+            "axes": { "xfixed": false, "yfixed": false, "xlog": false, "ylog": false, "zlog": false, "xmin": -0.05, "xmax": 2, "ymin": 0, "ymax": 2, "zmin": 0, "zmax": 1 },
             "legend": { "style": "side", "position": "right" }
         },
         {
