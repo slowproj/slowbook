@@ -1,4 +1,6 @@
 ## Slowbook データを Redis に保存する例
+Example for Storing Slowbook Data in Redis.
+(For English documentation, see [README_EN.md](README_EN.md))
 
 ### 内容
 - **01-numeric.cpp**: 時系列データを Redis TimeSeries に保存
