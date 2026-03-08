@@ -1,5 +1,5 @@
 ## Slowbook データを Redis に保存する例
-Example for Storing Slowbook Data in Redis.
+Example for Storing Slowbook Data in Redis.<br>
 (For English documentation, see [README_EN.md](README_EN.md))
 
 ### 内容

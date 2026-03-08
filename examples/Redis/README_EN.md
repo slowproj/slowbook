@@ -15,7 +15,7 @@ If Redis is not installed, you can quickly start a temporary Redis Stack server 
 ```bash
 docker run -p 6379:6379 redis/redis-stack-server:latest
 ```
-Even if you already have Redis running, you can start another instance on a different port (as shown above) and use it for testing, so your existing Redis data remains untouched.
+Even if you already have Redis running, you can start another instance on a different port and use it for testing, so your existing Redis data remains untouched.
 In that case, update the port number in the source code to point to the test instance.
 
 ### Setup
